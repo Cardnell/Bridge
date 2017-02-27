@@ -7,13 +7,13 @@ namespace BridgeEngine
     public class Trick
     {
         private readonly List<Tuple<Card, PlayerDirection>> _cards = new List<Tuple<Card, PlayerDirection>>();
-        private CardSuit _trumps;
+        public CardSuit Trumps { get; }
 
         public bool IsComplete => _cards.Count == 4;
 
         public Trick(CardSuit trumps)
         {
-            _trumps = trumps;
+            Trumps = trumps;
         }
 
         public PlayerDirection Winner()
@@ -22,9 +22,9 @@ namespace BridgeEngine
             CardSuit suit = max.Item1.Suit;
             foreach (Tuple<Card, PlayerDirection> cardPlayed in _cards)
             {
-                if (max.Item1.Suit == _trumps)
+                if (max.Item1.Suit == Trumps)
                 {
-                    if (cardPlayed.Item1.Suit == _trumps && cardPlayed.Item1.Rank > max.Item1.Rank)
+                    if (cardPlayed.Item1.Suit == Trumps && cardPlayed.Item1.Rank > max.Item1.Rank)
                     {
                         max = cardPlayed;
                     }
@@ -33,7 +33,7 @@ namespace BridgeEngine
                 {
                     max = cardPlayed;
                 }
-                else if (cardPlayed.Item1.Suit == _trumps)
+                else if (cardPlayed.Item1.Suit == Trumps)
                 {
                     max = cardPlayed;
                 }

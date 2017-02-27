@@ -15,7 +15,7 @@ namespace BridgeEngine
 
         private void AddFullSuit(CardSuit suit)
         {
-            for (int i = 2; i < 15; i++)
+            for (int i = 0; i < 13; i++)
             {
                 Cards.Add(new Card((CardRank)i, suit));
             }

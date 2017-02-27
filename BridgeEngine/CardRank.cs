@@ -13,6 +13,7 @@
         Ten,
         Jack,
         Queen,
-        King
+        King,
+        Ace
     }
 }

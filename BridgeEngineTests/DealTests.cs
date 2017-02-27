@@ -64,6 +64,52 @@ namespace BridgeEngineTests
             Assert.That(deal.Tricks[0].GetCard(player), Is.EqualTo(card));
         }
 
+        [Test]
+        public void Deal_TrickWon_WinnerLeadsToNextTrick()
+        {
+            Deal deal = SetupDeal();
+            List<Card> cards = GetCards();
+            deal.PlayCard(cards[0]);
+            //This is east who will win the trick
+            deal.PlayCard(cards[1]);
+            deal.PlayCard(cards[2]);
+            deal.PlayCard(cards[3]);
+
+            Assert.That(deal.TurnToPlay, Is.EqualTo(PlayerDirection.East));
+        }
+
+        [Test]
+        public void Deal_TrumpsSet_PassedOntoTrick()
+        {
+            Deal deal = SetupDeal();
+            deal.Trumps = CardSuit.Hearts;
+            deal.PlayCard(GetCard());
+
+            Assert.That(deal.Tricks[0].Trumps, Is.EqualTo(CardSuit.Hearts));
+        }
+
+        [TestCase(PlayerDirection.North, 2)]
+        [TestCase(PlayerDirection.South, 2)]
+        [TestCase(PlayerDirection.East, 1)]
+        [TestCase(PlayerDirection.West, 1)]
+        public void Deal_TricksWonByPartner_AreAddedTogether(PlayerDirection player, int tricksWon)
+        {
+            Deal deal = SetupDeal();
+            deal.Trumps = CardSuit.Hearts;
+            List<Card> cards = GetCards();
+
+            //Three tricks, 
+            //N - Qh, Kh, Qc, Kc - Winner east
+            //E - Qs, Ks, Qd, Kd - Winner south
+            //S - 2d, 3d, 10d, 4d - Winner west
+            foreach (Card card in cards)
+            {
+                deal.PlayCard(card);
+            }
+
+            Assert.That(deal.TricksWon(player), Is.EqualTo(tricksWon));
+        }
+
         private Card GetCard()
         {
             return new Card(CardRank.Queen, CardSuit.Hearts);
@@ -82,7 +128,9 @@ namespace BridgeEngineTests
                 new Card(CardRank.Queen, CardSuit.Diamonds),
                 new Card(CardRank.King, CardSuit.Diamonds),
                 new Card(CardRank.Two, CardSuit.Diamonds),
-                new Card(CardRank.Ten, CardSuit.Diamonds)
+                new Card(CardRank.Three, CardSuit.Diamonds),
+                new Card(CardRank.Ten, CardSuit.Diamonds),
+                new Card(CardRank.Four, CardSuit.Diamonds)
             };
         }
 

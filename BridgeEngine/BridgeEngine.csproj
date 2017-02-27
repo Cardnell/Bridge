@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Card.cs" />
     <Compile Include="CardRank.cs" />
+    <Compile Include="Deal.cs" />
     <Compile Include="Dealer.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="Hand.cs" />

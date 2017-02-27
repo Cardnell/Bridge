@@ -8,6 +8,9 @@ namespace BridgeEngine
     {
         private readonly List<Tuple<Card, PlayerDirection>> _cards = new List<Tuple<Card, PlayerDirection>>();
         private CardSuit _trumps;
+
+        public bool IsComplete => _cards.Count == 4;
+
         public Trick(CardSuit trumps)
         {
             _trumps = trumps;
@@ -42,5 +45,11 @@ namespace BridgeEngine
         {
             _cards.Add(new Tuple<Card, PlayerDirection>(card, direction));
         }
+
+        public Card GetCard(PlayerDirection player)
+        {
+            return _cards.Where(x => x.Item2 == player).Select(x=>x.Item1).First();
+        }
+
     }
 }

@@ -13,7 +13,7 @@ namespace BridgeEngineTests
         {
             var dealer = new Dealer();
 
-            Hand[] hands = dealer.Deal();
+            Hand[] hands = dealer.DealHands();
 
             Assert.That(hands.Length, Is.EqualTo(4));
         }
@@ -23,7 +23,7 @@ namespace BridgeEngineTests
         {
             var dealer = new Dealer();
 
-            Hand[] hands = dealer.Deal();
+            Hand[] hands = dealer.DealHands();
 
             foreach (Hand hand in hands)
             {
@@ -39,7 +39,7 @@ namespace BridgeEngineTests
             var deck = new Deck();
             var cardsInDeck = deck.Cards;
 
-            Hand[] hands = dealer.Deal();
+            Hand[] hands = dealer.DealHands();
             var totalCardsInHands =
                 hands[0].Cards.Union(hands[1].Cards)
                     .Union(hands[2].Cards)
@@ -57,8 +57,8 @@ namespace BridgeEngineTests
             var dealerOne = new Dealer();
             var dealerTwo = new Dealer();
 
-            Hand[] hands = dealerOne.Deal();
-            Hand[] otherHands = dealerTwo.Deal();
+            Hand[] hands = dealerOne.DealHands();
+            Hand[] otherHands = dealerTwo.DealHands();
 
             Assert.That(hands[0].Cards, Is.Not.EquivalentTo(otherHands[0].Cards));
         }

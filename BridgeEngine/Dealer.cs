@@ -6,7 +6,7 @@ namespace BridgeEngine
     {
         readonly Random _random = new Random(Guid.NewGuid().GetHashCode());
 
-        public Hand[] Deal()
+        public Hand[] DealHands()
         {
             var hands =  new Hand[4];
             for (int i = 0; i < 4; i++)

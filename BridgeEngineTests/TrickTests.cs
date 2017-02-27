@@ -60,5 +60,56 @@ namespace BridgeEngineTests
             Assert.That(trick.Winner(), Is.EqualTo(PlayerDirection.West));
         }
 
+        [Test]
+        public void Trick_CardPlyed_ReturnsCardByPlayer()
+        {
+            var trick = new Trick(CardSuit.Spades);
+
+            var firstCard = new Card(CardRank.Five, CardSuit.Clubs);
+            var secondCard = new Card(CardRank.Eight, CardSuit.Clubs);
+            var thirdCard = new Card(CardRank.Nine, CardSuit.Clubs);
+            var fourCard = new Card(CardRank.Two, CardSuit.Spades);
+
+            trick.AddCard(firstCard, PlayerDirection.North);
+            trick.AddCard(secondCard, PlayerDirection.East);
+            trick.AddCard(thirdCard, PlayerDirection.South);
+            trick.AddCard(fourCard, PlayerDirection.West);
+
+            Assert.That(trick.GetCard(PlayerDirection.East), Is.EqualTo(secondCard));
+        }
+
+        [Test]
+        public void Trick_ThreeCardsPlayed_TrickNotComplete()
+        {
+            var trick = new Trick(CardSuit.Spades);
+
+            var firstCard = new Card(CardRank.Five, CardSuit.Clubs);
+            var secondCard = new Card(CardRank.Eight, CardSuit.Clubs);
+            var thirdCard = new Card(CardRank.Nine, CardSuit.Clubs);
+
+            trick.AddCard(firstCard, PlayerDirection.North);
+            trick.AddCard(secondCard, PlayerDirection.East);
+            trick.AddCard(thirdCard, PlayerDirection.South);
+
+            Assert.That(trick.IsComplete, Is.False);
+        }
+
+        [Test]
+        public void Trick_FourCardsPlayed_TrickComplete()
+        {
+            var trick = new Trick(CardSuit.Spades);
+
+            var firstCard = new Card(CardRank.Five, CardSuit.Clubs);
+            var secondCard = new Card(CardRank.Eight, CardSuit.Clubs);
+            var thirdCard = new Card(CardRank.Nine, CardSuit.Clubs);
+            var fourCard = new Card(CardRank.Two, CardSuit.Spades);
+
+            trick.AddCard(firstCard, PlayerDirection.North);
+            trick.AddCard(secondCard, PlayerDirection.East);
+            trick.AddCard(thirdCard, PlayerDirection.South);
+            trick.AddCard(fourCard, PlayerDirection.West);
+
+            Assert.That(trick.IsComplete, Is.True);
+        }
     }
 }
